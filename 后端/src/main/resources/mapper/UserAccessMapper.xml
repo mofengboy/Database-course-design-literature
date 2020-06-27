@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.UserAccessDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.UserAccess">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="access_id" jdbcType="INTEGER" property="accessId"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+    </resultMap>
+    <select id="selectUserAccessList" resultMap="BaseResultMap">
+        select id ,user_id,access_id,register_time
+        from user_access
+    </select>
+    <select id="selectUserAccessByUserId" resultMap="BaseResultMap">
+        select id ,user_id,access_id,register_time
+        from user_access
+        where user_id  =#{userId}
+    </select>
+    <select id="selectUserAccessByAccessId" resultMap="BaseResultMap">
+        select id ,user_id,access_id,register_time
+        from user_access
+        where access_id  =#{accessId}
+    </select>
+    <insert id="insertAccessUser" parameterType="com.sunan.literature.entity.UserAccess">
+        insert into user_access(user_id,access_id)
+        values (#{userId},#{accessId})
+    </insert>
+    <delete id="deleteAccessUserByUserId" parameterType="java.lang.Integer">
+        delete from access_user
+        where user_id = #{user_id}
+    </delete>
+</mapper>

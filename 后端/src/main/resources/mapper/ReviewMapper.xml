@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.ReviewDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.Review">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="article_id" jdbcType="INTEGER" property="articleId"/>
+        <result column="to_review_id" jdbcType="INTEGER" property="toReviewId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="review_content" jdbcType="VARCHAR" property="reviewContent"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+    </resultMap>
+    <select id="selectReviewListByArticleId" resultMap="BaseResultMap">
+        select id,article_id,to_review_id,user_id,review_content,register_time
+        from review
+        where article_id = #{articleId}
+    </select>
+    <select id="selectReviewListByUserId" resultMap="BaseResultMap">
+        select id,article_id,to_review_id,user_id,review_content,register_time
+        from review
+        where user_id = #{userId}
+    </select>
+    <insert id="insertReview" parameterType="com.sunan.literature.entity.Review">
+        insert into review(article_id,to_review_id,user_id,review_content)
+        values(#{articleId},#{toReviewId},#{userId},#{reviewContent})
+    </insert>
+    <delete id="deleteReviewById" parameterType="java.lang.Integer">
+        delete from review
+        where id = #{id}
+    </delete>
+</mapper>

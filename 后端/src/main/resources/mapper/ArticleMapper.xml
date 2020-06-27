@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.ArticleDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.Article">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="section_id" jdbcType="INTEGER" property="sectionId"/>
+        <result column="article_title" jdbcType="VARCHAR" property="articleTitle"/>
+        <result column="article_content" jdbcType="VARCHAR" property="articleContent"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+    </resultMap>
+    <select id="selectArticleListBySectionId" resultMap="BaseResultMap">
+        select id,user_id,article_title,register_time from (
+            select id,user_id,article_title,register_time from article
+            where section_id = #{sectionId}
+        ) as section1
+        limit #{startId},#{counts}
+    </select>
+
+    <select id="selectAllArticleListBySectionId" resultMap="BaseResultMap">
+        select id,user_id,article_title,register_time
+        from article
+        limit #{startId},#{counts}
+    </select>
+
+    <select id="selectArticleById" resultMap="BaseResultMap">
+        select id,user_id,section_id,article_title,article_content,register_time
+        from article
+        where id = #{id}
+    </select>
+
+    <insert id="insertArticle" parameterType="com.sunan.literature.entity.Article">
+        insert into article(user_id,section_id,article_title,article_content)
+        values (#{userId},#{sectionId},#{articleTitle},#{articleContent})
+    </insert>
+
+    <update id="updateArticleById" parameterType="com.sunan.literature.entity.Article">
+        update article
+        set user_id = #{userId},section_id =#{section_id},artitle_title = #{articleTitle},article_content = #{articleContent}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteArticleById" parameterType="java.lang.Integer">
+        delete from article
+        where id = #{id}
+    </delete>
+</mapper>

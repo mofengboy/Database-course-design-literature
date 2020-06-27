@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.SectionUserDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.SectionUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="section_id" jdbcType="INTEGER" property="sectionId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="registerTime"/>
+    </resultMap>
+    <select id="selectSectionUserList" resultMap="BaseResultMap">
+        select id,section_id,user_id,register_time
+        from section_user
+    </select>
+    <select id="selectSectionUserByUserId" resultMap="BaseResultMap">
+        select id,section_id,user_id,register_time
+        from section_user
+        where user_id = #{userId}
+    </select>
+    <select id="selectSectionUserBySectionId" resultMap="BaseResultMap">
+        select id,section_id,user_id,register_time
+        from section_user
+        where section_id = #{sectionId}
+    </select>
+    <insert id="insertSectionUser" parameterType="com.sunan.literature.entity.SectionUser">
+        insert into section_user(section_id,user_id)
+        values (#{sectionId},#{userId})
+    </insert>
+    <delete id="deleteSectionUserByUserId" parameterType="java.lang.Integer">
+        delete from section_user
+        where user_id = #{userId}
+    </delete>
+</mapper>

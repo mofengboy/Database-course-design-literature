@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.AccessDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.Access">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="access_name" jdbcType="VARCHAR" property="accessName"/>
+    </resultMap>
+
+    <select id="selectAccessList" resultMap="BaseResultMap">
+        select id,access_name
+        form access
+    </select>
+
+    <update id="updateAccessById" parameterType="com.sunan.literature.entity.Access">
+        update access
+        set access_name = #{accessName}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAccessById" parameterType="java.lang.Integer">
+        delete from access
+        where id = #{id}
+    </delete>
+
+    <insert id="insertAccess" parameterType="com.sunan.literature.entity.Access">
+        insert into access(access_name)
+        value (#{accessName})
+    </insert>
+</mapper>

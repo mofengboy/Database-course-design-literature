@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunan.literature.dao.SectionDao">
+    <resultMap id="BaseResultMap" type="com.sunan.literature.entity.Section">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="section_name" jdbcType="VARCHAR" property="sectionName"/>
+        <result column="register_time" jdbcType="TIMESTAMP" property="register_time"/>
+    </resultMap>
+    <select id="selectSectionList" resultMap="BaseResultMap">
+        select id,section_name,register_time
+        from section
+    </select>
+    <insert id="insertSection" parameterType="com.sunan.literature.entity.Section">
+        insert into section (section_name)
+        values(#{sectionName})
+    </insert>
+    <delete id="deleteSectionById" parameterType="java.lang.Integer">
+        delete from section
+        where id = #{id}
+    </delete>
+    <update id="updateSectionById" parameterType="com.sunan.literature.entity.Section">
+        update section
+        set section_name = #{section_name}
+        where id = #{id}
+    </update>
+</mapper>
